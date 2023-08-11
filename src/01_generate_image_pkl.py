@@ -8,7 +8,7 @@ logging_str = '[%(asctime)s: %(levelname)s: %(module)s]: %(message)s'
 log_dir = 'logs'
 os.makedirs(log_dir, exist_ok=True)
 logging.basicConfig(filename=os.path.join(log_dir, 'runnig_log.log'),
-                     level=logging.info, format=logging_str, filemode='a')
+                     level=logging.INFO, format=logging_str, filemode='a')
 
 def generate_data_pickfle_file(config_path: str, params_path):
     config = read_yaml(config_path)
@@ -16,9 +16,9 @@ def generate_data_pickfle_file(config_path: str, params_path):
 
     artifacts = config['artifacts']
     artifacts_dir = artifacts['artifacts_dir']
-    pickle_format_data_dir= artifacts['pickle_format_data']
-    img_pick_file_name = artifacts['img_pick_file_name']
-    feature_extractor_dir = artifacts['feature_extractor_dir']
+    pickle_format_data_dir= artifacts['pickle_format_data_dir']
+    img_pick_file_name = artifacts['img_pickle_file_name']
+    feature_extractor_dir = artifacts['feature_extraction_dir']
     extracted_features_name = artifacts['extracted_features_name']
 
     raw_local_dir_path = os.path.join(artifacts_dir, pickle_format_data_dir)
