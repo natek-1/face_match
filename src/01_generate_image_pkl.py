@@ -20,8 +20,7 @@ def generate_data_pickfle_file(config_path: str, params_path):
     artifacts_dir = artifacts['artifacts_dir']
     pickle_format_data_dir= artifacts['pickle_format_data_dir']
     img_pickle_file_name = artifacts['img_pickle_file_name']
-    feature_extractor_dir = artifacts['feature_extraction_dir']
-    extracted_features_name = artifacts['extracted_features_name']
+    
 
     ## Setting up folder where our images will be for easy access
     raw_local_dir_path = os.path.join(artifacts_dir, pickle_format_data_dir)
