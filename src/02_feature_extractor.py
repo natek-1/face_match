@@ -56,8 +56,10 @@ def feature_extractor(config_path, params_path):
 
     for file in tqdm(filenames):
         features.append(extractor(file, model))
-    
+    logging.info('Feautures for all the image creates')
     pickle.dump(features, open(feature_name, 'wb'))
+    logging.info(f'Feautures for all the image saves to {feature_name}')
+
 
 
 
