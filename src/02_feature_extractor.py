@@ -1,13 +1,10 @@
 import os
 import argparse
 import logging
-from tensorflow.keras.preprocessing import image
-from keras_vggface.utils import preprocess_input
-from keras_vggface.vggface import VGGFace
+from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow .keras.applications import resnet50
 import numpy as np
 from tqdm import tqdm
-
-
 import pickle
 from src.utils.all_utils import read_yaml, create_directory
 
@@ -19,10 +16,10 @@ logging.basicConfig(filename=os.path.join(log_dir, 'runnig_log.log'),
                      level=logging.INFO, format=logging_str, filemode='a')
 
 def extractor(image_path, model, image_size=(224, 224)):
-    img = image.load_img(image_path, target_size=image_size)
-    img_array = image.img_to_array(img)
+    img = load_img(image_path, target_size=image_size)
+    img_array = img_to_array(img)
     expended_image = np.expand_dims(img_array, axis=0)
-    preprocess_img = preprocess_input(expended_image)
+    preprocess_img = resnet50.preprocess_input(expended_image)
     result = model.predict(preprocess_img).flatten()
     return result
 
@@ -40,12 +37,11 @@ def feature_extractor(config_path, params_path):
     img_pickle_file_name = os.path.join(artifacts_dir, pickle_format_data_dir, img_pickle_file_name)
 
     filenames = pickle.load(open(img_pickle_file_name, 'rb'))
-    model_name = params['base']['BASE_MODEL']
     include_tops = params['base']['include_top']
     pooling = params['base']['pooling']
     shape = params['base']['input_shape']
 
-    model = VGGFace(model= model_name, include_top=include_tops, input_shape=shape, pooling=pooling)
+    model = resnet50.ResNet50(include_top=include_tops, input_shape=shape, pooling=pooling)
 
     feature_extractor_path = os.path.join(artifacts_dir,feature_extractor_dir)
     create_directory(dirs=[feature_extractor_path])
