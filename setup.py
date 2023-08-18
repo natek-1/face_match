@@ -11,14 +11,13 @@ setup(
     python_requires='>3.7',
     install_requires=[
         'mtcnn==0.1.0',
-        'tensorflow==2.5.0',
-        'keras==2.4.1',
-        'keras-vggface==0.6',
-        'keras_applications==1.0.8',
-        'PyYAML',
-        'tqdm',
-        'scikit-learn',
-        'streamlit',
-        'bing-image-downloader'
+        'tensorflow==2.13.0',
+        'keras==2.13.1',
+        'PyYAML==6.0.1',
+        'tqdm==4.66.1',
+        'scikit-learn==1.3.0',
+        'streamlit==1.25.0',
+        'bing-image-downloader',
+        'numpy==1.24.3'
     ]
 )
