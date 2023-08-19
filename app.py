@@ -75,7 +75,15 @@ def extract_features(img_path,model=model,detector=detector):
         preprocess_img = resnet50.preprocess_input(expended_image)
         result = model.predict(preprocess_img).flatten()
 
-        return result
+    return result
+
+def recommend(feature_list : list(np.array), feature: np.array):
+    similarity = []
+    for feauture_y in feature_list:
+        similarity.append(cosine_similarity(feature.reshape(1, -1), feauture_y.reshape(1, -1))[0][0])
+    index_pos = sorted(list(enumerate(similarity)), reverse=True, key=lambda x: x[1])[0][0]
+
+    return index_pos
 
 
 
@@ -90,5 +98,9 @@ if upload_image is not None:
         display_image = Image.open(upload_image)
 
         # Extract Feature
-        extract_features(os.path.join(upload_path, upload_image.name))
+        feature = extract_features(os.path.join(upload_path, upload_image.name))
+
+        # make selection
+        if feature != []:
+            index  = recommend(feature_list, feature)
         
